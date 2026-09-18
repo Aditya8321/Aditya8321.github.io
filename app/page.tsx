@@ -18,23 +18,17 @@ export default function HomePage() {
     url: site.url,
     email: `mailto:${site.email}`,
     image: `${site.url}/profile.jpg`,
-    jobTitle: "MS Financial Engineering Student & Quant Researcher",
+    jobTitle: "MS Financial Engineering student and Graduate Teaching Assistant",
     description: site.description,
     sameAs: [site.github, site.linkedin],
     alumniOf: [
-      {
-        "@type": "CollegeOrUniversity",
-        name: "New York University - Tandon School of Engineering"
-      },
-      {
-        "@type": "CollegeOrUniversity",
-        name: "Nirma University"
-      }
+      { "@type": "CollegeOrUniversity", name: "New York University - Tandon School of Engineering" },
+      { "@type": "CollegeOrUniversity", name: "Nirma University" }
     ],
     knowsAbout: [
       "Quantitative Finance",
-      "Derivatives",
       "Risk Management",
+      "Derivatives",
       "Machine Learning",
       "Reinforcement Learning",
       "Large Language Models"
@@ -48,7 +42,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
       <Nav />
-      <main className="relative">
+      <main id="top">
         <Hero />
         <About />
         <Experience />

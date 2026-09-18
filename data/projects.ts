@@ -255,16 +255,51 @@ export const projects: Project[] = [
     ]
   },
   {
+    id: "reasoning-model-sft-dapo",
+    title: "Reasoning Model Pipeline - SmolLM2 with SFT + DAPO",
+    oneLiner:
+      "Turned a 360M-parameter SmolLM2 into a chain-of-thought reasoning model via tokenizer surgery, LoRA-SFT on DeepSeek-R1 traces, and DAPO RL with verifiable rewards - 2.25× GSM8K accuracy.",
+    description:
+      "Two-stage post-training pipeline for small reasoning models. Stage one performs tokenizer surgery to add reasoning-specific special tokens, then runs LoRA supervised fine-tuning on 1K DeepSeek-R1 reasoning traces to teach the think-then-answer format. Stage two applies DAPO (Decoupled Clip and Dynamic Sampling Policy Optimization) reinforcement learning with verifiable math rewards. The resulting 360M model reaches 2.25× the GSM8K accuracy of the base model.",
+    category: "AI & ML",
+    tech: ["Python", "PyTorch", "Hugging Face TRL", "PEFT / LoRA", "DAPO"],
+    highlights: [
+      "360M-parameter SmolLM2 base",
+      "Tokenizer surgery + LoRA-SFT on 1K DeepSeek-R1 traces",
+      "DAPO RL with verifiable rewards",
+      "2.25× GSM8K accuracy vs base model"
+    ],
+    featured: true
+  },
+  {
+    id: "llm-option-pricing-tool-calls",
+    title: "LLM Tool-Calling for Option Pricing - LoRA-SFT + GRPO",
+    oneLiner:
+      "Fine-tuned SmolLM2 to reliably call a Black-Scholes pricing tool: parse rate 0% → 100%, average reward -0.117 → 1.033, zero catastrophic forgetting.",
+    description:
+      "Research project with Prof. Ken Perry for NYU Tandon's Deep Learning Models in Finance course. A small LLM is taught to price options by calling a Black-Scholes tool instead of hallucinating numbers. Stage one: LoRA supervised fine-tuning on a curated 8,000-sample corpus of tool-call demonstrations. Stage two: GRPO reinforcement learning on a 1,200-prompt set with a verifiable reward for well-formed, correctly-parameterized tool calls. Tool-call parse rate rose from 0% to 100% and average reward from -0.117 to 1.033, with no measurable regression on the model's general capabilities.",
+    category: "AI & ML",
+    tech: ["Python", "PyTorch", "Hugging Face TRL", "PEFT / LoRA", "GRPO"],
+    highlights: [
+      "Tool-call parse rate: 0% → 100%",
+      "Average reward: -0.117 → 1.033",
+      "LoRA-SFT (8K samples) → GRPO RL (1.2K prompts)",
+      "Zero catastrophic forgetting"
+    ],
+    featured: true
+  },
+  {
     id: "finance-rag-assistant",
     title: "Finance RAG Assistant - LLM Document Intelligence",
     oneLiner:
       "Citation-backed RAG over 10-Ks, 10-Qs, and earnings transcripts. FAISS retrieval + LLM generation, deployed as a Streamlit app.",
     description:
-      "End-to-end retrieval-augmented generation for financial filings. Ingests 10-K / 10-Q / earnings transcripts, chunks and embeds them, runs FAISS semantic retrieval, and generates answers with explicit source citations. Designed to minimize hallucination and provide an auditable evidence trail.",
+      "End-to-end retrieval-augmented generation for financial filings. Ingests 10+ SEC filings (10-K / 10-Q) and earnings transcripts, chunks and embeds them into a 1,000+ chunk FAISS index, retrieves the top-3 passages per query, and generates answers with explicit source citations. Achieves 89% answer relevance on an evaluation set while cutting API costs by 50% through retrieval-scoped prompting. Designed to minimize hallucination and provide an auditable evidence trail.",
     category: "AI & ML",
     tech: ["Python", "LangChain", "FAISS", "OpenAI", "Streamlit"],
     highlights: [
-      "Modular RAG pipeline (ingest → chunk → embed → retrieve → generate)",
+      "10+ SEC filings, 1,000+ indexed chunks, top-3 retrieval",
+      "89% answer relevance, 50% lower API cost",
       "Citation-backed answers, hallucination guards",
       "Streamlit UI for real-time querying"
     ],
@@ -274,18 +309,20 @@ export const projects: Project[] = [
   },
   {
     id: "market-anomaly-detection",
-    title: "Real-Time-Ready Market Anomaly Detection",
+    title: "Market Anomaly Detection (Unsupervised ML)",
     oneLiner:
-      "Unsupervised anomaly detection on streaming market data with event-study validation against forward returns.",
+      "Point-in-time anomaly pipeline over 8 liquid ETFs that ensembles Isolation Forest with rolling z-score detectors and captures 41% of top-1% absolute-move days.",
     description:
-      "Streaming-ready anomaly-detection framework. Combines interpretable rules with unsupervised ML detectors, evaluates anomalies via point-in-time backtesting and event-study analysis, and quantifies whether detected anomalies are economically meaningful (not just statistical outliers).",
+      "Streaming-ready, point-in-time anomaly-detection framework over 8 liquid ETFs. Engineers return, volatility, and volume features, then ensembles an Isolation Forest with rolling z-score detectors so that interpretable rules and unsupervised ML vote together. Validated with event-study analysis against forward returns: the ensemble flags 41% of the top-1% absolute-move days while keeping the alert budget small, so detected anomalies are economically meaningful rather than just statistical outliers.",
     category: "AI & ML",
-    tech: ["Python", "Unsupervised ML", "Event Study"],
+    tech: ["Python", "Isolation Forest", "Unsupervised ML", "Event Study"],
     highlights: [
-      "Hybrid rules + ML anomaly scoring",
-      "Streaming-ready pipeline design",
+      "8-ETF universe, point-in-time (no look-ahead) pipeline",
+      "Isolation Forest + rolling z-score ensemble on return / vol / volume",
+      "Captures 41% of top-1% absolute-move days",
       "Event-study validation against forward returns"
-    ]
+    ],
+    featured: true
   },
   {
     id: "bank-churn-ml",

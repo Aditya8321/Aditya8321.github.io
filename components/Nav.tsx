@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
 import { site } from "@/data/site";
+import { asset } from "@/lib/utils";
 
 const links = [
   { href: "#about", label: "About" },
@@ -14,107 +14,102 @@ const links = [
   { href: "#contact", label: "Contact" }
 ];
 
-export default function Nav() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
+type Theme = "light" | "dark" | null;
+
+function ThemeToggle() {
+  const [theme, setTheme] = useState<Theme>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const t = document.documentElement.getAttribute("data-theme");
+    if (t === "light" || t === "dark") setTheme(t);
   }, []);
 
+  function toggle() {
+    const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const current = theme ?? (systemDark ? "dark" : "light");
+    const next: Theme = current === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    try {
+      localStorage.setItem("theme", next);
+    } catch {
+      /* private mode etc. */
+    }
+    setTheme(next);
+  }
+
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled
-          ? "border-b border-white/[0.04] bg-ink-950/70 backdrop-blur-xl"
-          : "bg-transparent"
-      )}
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label="Toggle light and dark theme"
+      title="Toggle theme"
+      className="flex h-8 w-8 items-center justify-center rounded-full text-ink-2 transition-colors hover:text-accent"
     >
-      <nav className="container-x flex h-16 items-center justify-between">
-        <a
-          href="#top"
-          className="group flex items-center gap-2 text-sm"
-          aria-label="Aditya Shah - home"
-        >
-          <span className="flex h-8 w-8 items-center justify-center rounded-md border border-accent/30 bg-accent/10 font-mono text-[12px] font-medium text-accent transition group-hover:border-accent/60 group-hover:bg-accent/20">
-            {site.initials}
-          </span>
-          <span className="hidden font-medium text-ink-100 sm:inline">{site.name}</span>
+      <svg viewBox="0 0 20 20" className="h-4 w-4" aria-hidden="true">
+        <circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor" strokeWidth="1.4" />
+        <path d="M10 2.5a7.5 7.5 0 0 1 0 15z" fill="currentColor" />
+      </svg>
+    </button>
+  );
+}
+
+export default function Nav() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <header className="sticky top-0 z-40 border-b border-rule bg-paper">
+      <div className="container flex h-14 items-center justify-between gap-6">
+        <a href="#top" className="display text-xl no-underline hover:text-accent">
+          {site.name}
         </a>
 
-        <ul className="hidden items-center gap-1 md:flex">
-          {links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="rounded-full px-3 py-1.5 text-sm text-ink-300 transition hover:bg-white/[0.04] hover:text-accent"
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <div className="hidden items-center gap-2 md:flex">
-          <a
-            href="/Aditya-Shah-Resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-ghost text-xs"
-          >
-            Résumé
-          </a>
-        </div>
-
-        <button
-          aria-label="Toggle menu"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-white/10 text-ink-200 md:hidden"
-        >
-          <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
-            {open ? (
-              <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
-            ) : (
-              <>
-                <path d="M4 7h16" strokeLinecap="round" />
-                <path d="M4 17h16" strokeLinecap="round" />
-              </>
-            )}
-          </svg>
-        </button>
-      </nav>
-
-      {open && (
-        <div className="border-t border-white/[0.05] bg-ink-950/95 backdrop-blur-xl md:hidden">
-          <ul className="container-x flex flex-col gap-1 py-3">
+        <nav aria-label="Sections" className="hidden md:block">
+          <ul className="flex items-center gap-5 text-sm">
             {links.map((l) => (
               <li key={l.href}>
-                <a
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="block rounded-lg px-3 py-2 text-sm text-ink-200 hover:bg-white/[0.04] hover:text-accent"
-                >
+                <a href={l.href} className="link-quiet">
                   {l.label}
                 </a>
               </li>
             ))}
-            <li>
-              <a
-                href="/Aditya-Shah-Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 block rounded-lg border border-white/10 px-3 py-2 text-sm text-ink-100 hover:border-accent/40 hover:text-accent"
-              >
-                Download Résumé →
-              </a>
-            </li>
           </ul>
+        </nav>
+
+        <div className="flex items-center gap-3">
+          <a
+            href={asset("/Aditya-Shah-Resume.pdf")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link text-sm"
+          >
+            Résumé <span aria-hidden="true">↗</span>
+          </a>
+          <ThemeToggle />
+          <button
+            type="button"
+            aria-label="Toggle menu"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            onClick={() => setOpen((v) => !v)}
+            className="text-sm text-ink-2 hover:text-accent md:hidden"
+          >
+            {open ? "Close" : "Menu"}
+          </button>
         </div>
+      </div>
+
+      {open && (
+        <nav id="mobile-nav" aria-label="Sections" className="border-t border-rule md:hidden">
+          <ul className="container grid grid-cols-2 gap-x-6 py-3 text-sm">
+            {links.map((l) => (
+              <li key={l.href}>
+                <a href={l.href} onClick={() => setOpen(false)} className="link-quiet block py-1.5">
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       )}
     </header>
   );

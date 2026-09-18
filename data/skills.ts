@@ -15,7 +15,8 @@ export const skills: SkillGroup[] = [
       "Monte Carlo",
       "Vasicek Rates",
       "Greeks & Hedging",
-      "Implied Volatility"
+      "Implied Volatility",
+      "Forward Curves"
     ]
   },
   {
@@ -23,8 +24,10 @@ export const skills: SkillGroup[] = [
     items: [
       "Value at Risk (Historical / Parametric / MC)",
       "Expected Shortfall (CVaR)",
-      "Kupiec & Christoffersen Backtests",
+      "Risk Decomposition",
       "Stress Testing",
+      "P&L Drawdown Analysis",
+      "Kupiec & Christoffersen Backtests",
       "Component VaR",
       "Ledoit–Wolf Shrinkage",
       "Mean–Variance Optimization",
@@ -33,19 +36,35 @@ export const skills: SkillGroup[] = [
     ]
   },
   {
-    category: "Machine Learning & AI",
+    category: "Machine Learning",
     items: [
       "PyTorch",
       "TensorFlow",
       "scikit-learn",
+      "XGBoost",
+      "Random Forest",
+      "BERT",
       "LSTM / RNN",
+      "CNNs",
       "Reinforcement Learning",
       "Q-Learning",
-      "LLMs",
+      "TinyML"
+    ]
+  },
+  {
+    category: "LLMs & Agentic AI",
+    items: [
+      "Hugging Face",
+      "PEFT / LoRA",
+      "TRL",
+      "RLHF (SFT, PPO, GRPO, DAPO)",
+      "Transformers",
       "RAG",
       "FAISS",
       "LangChain",
-      "TinyML"
+      "Agentic AI",
+      "MCP",
+      "Claude Code"
     ]
   },
   {
@@ -54,23 +73,33 @@ export const skills: SkillGroup[] = [
       "Python",
       "R",
       "C / C++",
+      "Java",
       "SQL",
       "Bash",
       "Git",
-      "Streamlit",
+      "CI/CD",
+      "AWS",
       "Jupyter",
+      "Streamlit",
       "pandas",
       "NumPy",
       "SciPy",
+      "Power BI",
+      "Tableau",
+      "Excel",
       "Bloomberg Terminal"
     ]
   },
   {
     category: "Data & Markets",
     items: [
+      "Snowflake",
+      "PostgreSQL",
+      "SQL Server",
       "FRED",
       "yfinance",
       "Options Chain Data",
+      "Commodity Forward Curves",
       "ETF Universe Construction",
       "Cross-Asset Datasets",
       "Time-Series Econometrics"

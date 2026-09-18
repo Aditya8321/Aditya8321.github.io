@@ -16,12 +16,12 @@ export const education: Education[] = [
     field: "Financial Engineering",
     start: "Aug 2025",
     end: "May 2027",
-    gpa: "4.0 / 4.0",
+    gpa: "3.95 / 4.0",
     location: "Brooklyn, New York",
     highlights: [
       "Department: Finance & Risk Engineering (FRE)",
-      "Coursework: ML in Financial Engineering, Quantitative Methods, Derivatives, Deep Learning in Finance",
-      "Graduate Teaching Assistant, Deep Learning Models in Financial Learning (FRE-GY 7871)"
+      "Coursework: Stochastic Calculus, Derivative Securities, Time-Series Analysis, ML in Financial Engineering, Probability & Statistics, Quantitative Portfolio Management, Financial Risk Management, Algorithmic Trading, Commodities, Blockchain",
+      "Graduate Teaching Assistant: Financial Risk Management (Fall 2026) and Deep Learning Models in Finance, FRE-GY 7871 (Spring 2026)"
     ]
   },
   {
