@@ -1,6 +1,7 @@
-import Image from "next/image";
 import Section from "@/components/ui/Section";
-import { projects, projectCategories, type Project } from "@/data/projects";
+import Lightbox from "@/components/Lightbox";
+import ProjectIndex from "@/components/sections/ProjectIndex";
+import { projects, type Project } from "@/data/projects";
 import { site } from "@/data/site";
 import { asset } from "@/lib/utils";
 
@@ -39,7 +40,7 @@ export default function Projects() {
         <>
           A working catalogue of {projects.length} projects across trading, risk, portfolios, and
           AI. The first {selected.length} are the ones I would show first; the rest are indexed by
-          area below. Code and write-ups are on{" "}
+          area below and can be filtered. Code and write-ups are on{" "}
           <a href={site.github} target="_blank" rel="noopener noreferrer" className="link">
             GitHub
           </a>
@@ -50,14 +51,13 @@ export default function Projects() {
       <h3 className="label">Selected</h3>
       <ol className="mt-4 grid gap-x-8 gap-y-10 sm:grid-cols-2">
         {selected.map((p) => (
-          <li key={p.id} className="hairline pt-4">
+          <li key={p.id} id={`project-${p.id}`} className="hairline pt-4">
             {p.image && (
-              <Image
+              <Lightbox
                 src={asset(p.image)}
                 alt={p.imageAlt || p.title}
-                width={1200}
-                height={675}
-                className="mb-4 aspect-[16/9] w-full rounded-sm border border-rule object-cover"
+                caption={`${p.title}: ${p.imageAlt ?? ""}`}
+                className="mb-4"
               />
             )}
             <div className="tag">{p.category}</div>
@@ -69,27 +69,8 @@ export default function Projects() {
       </ol>
 
       <h3 className="label mt-16">Everything else, by area</h3>
-      <div className="mt-2">
-        {projectCategories.map((cat) => {
-          const items = rest.filter((p) => p.category === cat);
-          if (items.length === 0) return null;
-          return (
-            <div key={cat} className="hairline grid gap-2 py-5 sm:grid-cols-[9.5rem_minmax(0,1fr)] sm:gap-8">
-              <h4 className="font-sans text-sm font-medium text-ink">
-                {cat} <span className="font-mono text-muted tnum">{items.length}</span>
-              </h4>
-              <ol className="space-y-4">
-                {items.map((p) => (
-                  <li key={p.id}>
-                    <div className="font-sans text-[0.95rem] font-medium text-ink">{p.title}</div>
-                    <p className="mt-0.5 text-sm text-ink-2">{p.oneLiner}</p>
-                    <Details p={p} />
-                  </li>
-                ))}
-              </ol>
-            </div>
-          );
-        })}
+      <div className="mt-4">
+        <ProjectIndex items={rest} />
       </div>
     </Section>
   );

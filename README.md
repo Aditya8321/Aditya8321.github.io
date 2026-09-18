@@ -72,6 +72,8 @@ Inputs are validated client-side with Zod (`lib/contact-schema.ts`); a hidden ho
 
 Warm paper / ink palette with a rust accent, defined as CSS variables in `app/globals.css`; dark mode follows the system setting and can be toggled from the nav (stored in `localStorage`). Type: Instrument Serif for headings, IBM Plex Sans for text, IBM Plex Mono for dates and labels (self-hosted at build time via `next/font`). Sections use a two-column editorial layout with a sticky title (`components/ui/Section.tsx`). There is a print stylesheet, so the page prints as a CV.
 
+Interactive pieces, all client-side and dependency-free: a ⌘K / Ctrl-K command palette (`components/CommandPalette.tsx`) that searches sections, projects, papers and links; a filterable project index with expand/collapse (`components/sections/ProjectIndex.tsx`); a Black–Scholes pricer with Greeks, a price curve and an implied-vol solver (`components/sections/Playground.tsx`, math in `lib/bs.ts`); native-`<dialog>` lightboxes for project plots; scrollspy in the nav; copy-email buttons; local time in the hero; a back-to-top link. Keyboard: `⌘K` search, `t` theme, `Esc` close.
+
 Security: the site is static, so headers cannot be set by the host; a `Content-Security-Policy` meta tag in `app/layout.tsx` restricts scripts, styles, images, and connections to the site itself plus FormSubmit.
 
 ---

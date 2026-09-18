@@ -4,7 +4,7 @@ import { asset } from "@/lib/utils";
 
 export default function Education() {
   return (
-    <Section id="education" number="06" title="Education">
+    <Section id="education" number="07" title="Education">
       <ol>
         {education.map((edu, idx) => (
           <li

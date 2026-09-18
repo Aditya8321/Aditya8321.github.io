@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Section from "@/components/ui/Section";
+import CopyButton from "@/components/CopyButton";
 import { site } from "@/data/site";
 import { contactSchema } from "@/lib/contact-schema";
 
@@ -72,15 +73,15 @@ export default function Contact() {
   return (
     <Section
       id="contact"
-      number="07"
+      number="08"
       title="Contact"
       intro={
         <>
           Email is fastest:{" "}
           <a href={`mailto:${site.email}`} className="link">
             {site.email}
-          </a>
-          . The form goes to the same inbox. I reply to everything that isn&apos;t spam, usually
+          </a>{" "}
+          <CopyButton text={site.email} />. The form goes to the same inbox. I reply to everything that isn&apos;t spam, usually
           within a couple of days.
         </>
       }

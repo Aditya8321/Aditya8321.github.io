@@ -5,7 +5,7 @@ export default function Skills() {
   return (
     <Section
       id="skills"
-      number="05"
+      number="06"
       title="Skills"
       intro="What I reach for, grouped the way I think about it. Depth varies; ask me."
     >

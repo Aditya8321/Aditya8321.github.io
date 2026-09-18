@@ -12,7 +12,7 @@ export const site = {
   githubHandle: "Aditya8321",
   linkedin: "https://linkedin.com/in/adityashah2901",
   linkedinHandle: "adityashah2901",
-  repo: "https://github.com/Aditya8321/portfolio",
+  repo: "https://github.com/Aditya8321/Aditya8321.github.io",
   location: "New York, NY",
   tagline: "Risk, derivatives, and applied AI",
   description:

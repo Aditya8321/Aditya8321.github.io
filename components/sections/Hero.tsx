@@ -1,4 +1,6 @@
 import Image from "next/image";
+import CopyButton from "@/components/CopyButton";
+import LocalTime from "@/components/LocalTime";
 import { site } from "@/data/site";
 import { asset } from "@/lib/utils";
 
@@ -9,6 +11,7 @@ export default function Hero() {
         <div>
           <p className="label">
             {site.name} · {site.location}
+            <LocalTime />
           </p>
           <h1 className="mt-4 max-w-3xl text-balance text-[2.5rem] leading-[1.05] sm:text-5xl md:text-[3.5rem]">
             {site.headline}
@@ -31,9 +34,12 @@ export default function Hero() {
                 <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="link">
                   LinkedIn
                 </a>
-                <a href={`mailto:${site.email}`} className="link">
-                  {site.email}
-                </a>
+                <span className="inline-flex items-baseline gap-2">
+                  <a href={`mailto:${site.email}`} className="link">
+                    {site.email}
+                  </a>
+                  <CopyButton text={site.email} />
+                </span>
               </dd>
             </div>
           </dl>
